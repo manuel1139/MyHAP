@@ -43,3 +43,6 @@ void APP_DeviceCustomHIDStart();
  *
  ********************************************************************/
 void APP_DeviceCustomHIDTasks();
+
+
+void HIDSend(uint16_t );

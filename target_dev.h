@@ -13,7 +13,6 @@
 #include "tx_protocol.h"
 #include "hw_port.h"
 
-
 typedef struct ps_details {
     const uint16_t hdr_time_a;
     const uint16_t hdr_time_b;
@@ -23,14 +22,16 @@ typedef struct ps_details {
     const uint16_t space_zero;
     const uint16_t tail;
     const uint8_t bit_cnt;
-    const tx_protocol* protocol;
+    const hw_port* port;
 } ps_details;
 
 typedef struct target_dev {
     const char* name;
     const uint16_t address;
-    const hw_port* port;
+    const tx_protocol* protocol;
     const ps_details ps_data;
 } target_dev;
+
+bool isExclusive();
 
 #endif	/* TARGET_DEV_H */

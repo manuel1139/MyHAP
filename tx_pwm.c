@@ -8,7 +8,7 @@
  ***************************************************************/
 #include <xc.h>
 
-#include "tx_pwm.h"
+#include "pwm.h"
 
 void OpenPWM() {
     PR2 = 0b01001110;

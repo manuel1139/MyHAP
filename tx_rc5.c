@@ -25,7 +25,7 @@ typedef struct {
 } data;
 
 void tx_rc5(struct target_dev* r, uint16_t code) {
-
+#if 0
     static data tx_data;
     
     const struct hw_port* d = r->port;
@@ -76,6 +76,7 @@ void tx_rc5(struct target_dev* r, uint16_t code) {
         default:
             break;
     }
+#endif    
 }
 
 

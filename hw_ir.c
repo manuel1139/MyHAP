@@ -1,6 +1,5 @@
 #include "hw_port.h"
-#include "tx_stream.h"
-#include "tx_pwm.h"
+#include "pwm.h"
 #include "tx_timer.h"
 
 void ir_send() {
