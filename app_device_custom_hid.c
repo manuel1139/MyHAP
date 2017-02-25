@@ -17,38 +17,60 @@ void APP_DeviceCustomHIDInitialize() {
     USBInHandle = 0;
 
     //enable the HID endpoint
-    USBEnableEndpoint(CUSTOM_DEVICE_HID_EP, USB_IN_ENABLED | 
-                      USB_OUT_ENABLED | 
-                      USB_HANDSHAKE_ENABLED | 
-                      USB_DISALLOW_SETUP);
+    USBEnableEndpoint(CUSTOM_DEVICE_HID_EP, USB_IN_ENABLED |
+            USB_OUT_ENABLED |
+            USB_HANDSHAKE_ENABLED |
+            USB_DISALLOW_SETUP);
 
     //Re-arm the OUT endpoint for the next packet
-    USBOutHandle = (volatile USB_HANDLE)HIDRxPacket(CUSTOM_DEVICE_HID_EP, 
-                    (uint8_t*) & ReceivedDataBuffer, 64);
+    USBOutHandle = (volatile USB_HANDLE)HIDRxPacket(CUSTOM_DEVICE_HID_EP,
+            (uint8_t*) & ReceivedDataBuffer, 64);
+}
+
+void HIDSend(uint16_t command) {
+    
+#if 0    
+    if (USBGetDeviceState() < CONFIGURED_STATE) {
+        /* Jump back to the top of the while loop. */
+        break;
+    }
+
+    /* If we are currently suspended, then we need to see if we need to
+     * issue a remote wakeup.  In either case, we shouldn't process any
+     * keyboard commands since we aren't currently communicating to the host
+     * thus just continue back to the start of the while loop. */
+    if (USBIsDeviceSuspended() == true) {
+        /* Jump back to the top of the while loop. */
+        break;
+    }
+#endif
+    if (!HIDTxHandleBusy(USBInHandle)) {
+        uint16_t* ptrSB = (uint16_t*) & ToSendDataBuffer[0];
+        *ptrSB = command;
+        ToSendDataBuffer[7] = 0;
+        ToSendDataBuffer[6] = 0;
+        ToSendDataBuffer[5] = (uint8_t) command;
+        ToSendDataBuffer[4] = command >> 8;
+
+        ToSendDataBuffer[3] = 0;
+        ToSendDataBuffer[2] = 0;
+        ToSendDataBuffer[1] = (uint8_t) command;
+        ToSendDataBuffer[0] = command >> 8;
+
+        USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 32);
+    }
+
 }
 
 void APP_DeviceCustomHIDTasks() {
-#if 0    
-    extern struct remote * remotes[];
-    for (int i = 0; remotes[i]; i++) {
-        if (remotes[i]->rx_data.code_found != 0) {
-            if (!HIDTxHandleBusy(USBInHandle)) {
-                LED1 = 1;
-                ToSendDataBuffer[7] = 0;
-                ToSendDataBuffer[6] = 0;
-                ToSendDataBuffer[5] = (uint8_t) remotes[i]->rx_data.code_found;
-                ToSendDataBuffer[4] = remotes[i]->rx_data.code_found >> 8;
+    uint16_t command;
+    if (HIDRxHandleBusy(USBOutHandle) == false) {
+        //We just received a packet of data from the USB host.
+        command = ReceivedDataBuffer[0] << 8;
+        command |= ReceivedDataBuffer[1];
 
-                ToSendDataBuffer[3] = 0;
-                ToSendDataBuffer[2] = 0;
-                ToSendDataBuffer[1] = (uint8_t) remotes[i]->rx_data.code_found;
-                ToSendDataBuffer[0] = remotes[i]->rx_data.code_found >> 8;
-
-                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ToSendDataBuffer[0], 32);
-                remotes[i]->rx_data.code_found = 0;
-                LED1 = 0;
-            }
-        }
+        //Re-arm the OUT endpoint, so we can receive the next OUT data packet 
+        //that the host may try to send us.
+        USBOutHandle = HIDRxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*) & ReceivedDataBuffer, 64);
     }
-#endif    
 }

@@ -36,8 +36,11 @@ const uint16_t pollin_rf_rc_codes[] = {
     STEST,
 };
 
+
 struct target_dev pollin_rf_rc = {
     "Pollin",
+    0x000B, //address
+    &pulse_space,
     0x0, //header_a    
     0x03F0, //header_b
     0x043F, //pulse_one
@@ -45,10 +48,8 @@ struct target_dev pollin_rf_rc = {
     0x03C8, //pulse_zero
     0x0829, //space_zero
     0x0F00, //tail
-    0x000B,     //address
     20,
-    &pulse_space,
-    &hw_rf       
+    &hw_rf
 };
 
 #endif	/* T_POLLIN_H */

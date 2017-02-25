@@ -3,7 +3,7 @@
 #include "hw_port.h"
 #include "system.h"
 #include "tx_timer.h"
-#include "tx_pwm.h"
+#include "pwm.h"
 
 void rf_send() {
     RF_OUT = RF_OUT ^ 1;

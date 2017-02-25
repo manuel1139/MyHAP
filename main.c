@@ -27,6 +27,8 @@
 
 #include "t_pollin.h"
 #include "t_minfinity.h"
+#include "target_dev.h"
+#include "tx_usb.h"
 
 /*
  * 
@@ -53,9 +55,9 @@ int main(void) {
     USBDeviceInit();
     USBDeviceAttach();
 
-    cmd_target dvb_srv = {
+    target_dev dvb_srv = {
         //Name           //Adress     //port
-        { "DVB-Server", 0xABCD, &tx_usb}
+         "DVB-Server", 0xC0D1, &usb_d
     };
 
     /*
@@ -77,6 +79,9 @@ int main(void) {
             LED1 = LATAbits.LA5;
             LED2 = LATAbits.LA5;
         }
+        
+        
+        
     }
 }
 
