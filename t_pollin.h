@@ -35,12 +35,7 @@ const uint16_t pollin_rf_rc_codes[] = {
     S3_OFF,
     STEST,
 };
-
-
-struct target_dev pollin_rf_rc = {
-    "Pollin",
-    0x000B, //address
-    &pulse_space,
+#if 0
     0x0, //header_a    
     0x03F0, //header_b
     0x043F, //pulse_one
@@ -49,6 +44,12 @@ struct target_dev pollin_rf_rc = {
     0x0829, //space_zero
     0x0F00, //tail
     20,
+#endif
+struct target_dev pollin_rf_rc = {
+    "Pollin",
+    0x000B, //address
+    0,
+    &pulse_space,
     &hw_rf
 };
 

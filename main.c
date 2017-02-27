@@ -25,7 +25,7 @@
 
 #include "haapi.h"
 
-#include "t_pollin.h"
+#include "t_yamaha.h"
 #include "t_minfinity.h"
 #include "target_dev.h"
 #include "tx_usb.h"
@@ -55,9 +55,11 @@ int main(void) {
     USBDeviceInit();
     USBDeviceAttach();
 
+    void send_usb(struct target_dev*, uint16_t);
+    
     target_dev dvb_srv = {
         //Name           //Adress     //port
-         "DVB-Server", 0xC0D1, &usb_d
+         "DVB-Server", 0xC0D1, &usb_d, 0, send_usb
     };
 
     /*
@@ -74,8 +76,8 @@ int main(void) {
     while (1) {
         static uint32_t cntr = 0;
         if (cntr++ > 100000ul) {
-            SendCommand(&dvb_srv, S3_ON);
-            SendCommand(&pollin_rf_rc, S3_ON);
+            SendCommand(&dvb_srv, 0xabcd);
+            SendCommand(&yamaha, 0xabcd);
             LED1 = LATAbits.LA5;
             LED2 = LATAbits.LA5;
         }

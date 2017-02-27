@@ -29,9 +29,8 @@ typedef struct target_dev {
     const char* name;
     const uint16_t address;
     const tx_protocol* protocol;
-    const ps_details ps_data;
+    const ps_details* ps_data;
+    void (*send_bus)(struct target_dev*, uint16_t);
 } target_dev;
-
-bool isExclusive();
 
 #endif	/* TARGET_DEV_H */
