@@ -784,6 +784,12 @@
         </XC8-config-global>
       </item>
       <item path="testfile.c" ex="true" overriding="false">
+        <HI-TECH-COMP>
+        </HI-TECH-COMP>
+        <HI-TECH-LINK>
+        </HI-TECH-LINK>
+        <XC8-config-global>
+        </XC8-config-global>
       </item>
     </conf>
     <conf name="18f2450" type="2">

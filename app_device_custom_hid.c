@@ -29,10 +29,9 @@ void APP_DeviceCustomHIDInitialize() {
 
 void HIDSend(uint16_t command) {
     
-#if 0    
     if (USBGetDeviceState() < CONFIGURED_STATE) {
         /* Jump back to the top of the while loop. */
-        break;
+        return;
     }
 
     /* If we are currently suspended, then we need to see if we need to
@@ -41,9 +40,9 @@ void HIDSend(uint16_t command) {
      * thus just continue back to the start of the while loop. */
     if (USBIsDeviceSuspended() == true) {
         /* Jump back to the top of the while loop. */
-        break;
+        return;
     }
-#endif
+
     if (!HIDTxHandleBusy(USBInHandle)) {
         uint16_t* ptrSB = (uint16_t*) & ToSendDataBuffer[0];
         *ptrSB = command;

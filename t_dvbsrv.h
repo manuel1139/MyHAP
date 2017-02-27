@@ -8,16 +8,6 @@
 #ifndef T_DVBSRV_H
 #define	T_DVBSRV_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* T_DVBSRV_H */
 

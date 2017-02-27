@@ -16,14 +16,14 @@ typedef struct {
 
 io_ctrl io_c = {0};
 
-void send_cmd(struct target_dev *d, uint16_t code) {
-    if (d->ps_data.port != 0) {
+void io_ctrl_send_cmd(struct target_dev *d, uint16_t code) {
+    if (d->ps_data->port != 0) {
         if (!io_c.isBusy) {
             io_c.isBusy = true;
             io_c.target = d;
             io_c.code = code;
             //StopReceiving
-            d->ps_data.port->init();
+            d->ps_data->port->init();
 
             //start sending codes on the wire
             INTCONbits.TMR0IF; //hack to avoid duplicate function generation
