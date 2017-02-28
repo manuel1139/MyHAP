@@ -6,6 +6,7 @@
 #include "target_dev.h"
 #include "pwm.h"
 #include "timer_rx.h"
+#include "system.h"
 
 typedef struct {
     struct target_dev* target;
@@ -16,29 +17,38 @@ typedef struct {
 
 io_ctrl io_c = {0};
 
+void rx_raw(uint16_t bit_time);
+void rx_raw_timeo();
+
+
+//stops ccp1 interrupt to disable receiving
+#define StopReceivingInt() PIE1bits.CCP1IE = 0;
+#define StartReceivingInt() PIE1bits.CCP1IE = 1;
+
 void io_ctrl_send_cmd(struct target_dev *d, uint16_t code) {
     if (d->ps_data->port != 0) {
         if (!io_c.isBusy) {
             io_c.isBusy = true;
             io_c.target = d;
             io_c.code = code;
-            //StopReceiving
+            
+            //stop receiving to avoid receiving our own data
+            StopReceivingInt();
+
             d->ps_data->port->init();
 
             //start sending codes on the wire
             INTCONbits.TMR0IF; //hack to avoid duplicate function generation
             //r->protocol->tx(r);   //instead of this
         }
-    } else {
-        //assume non exclusive device : todo :
-        d->protocol->tx(d, code);
     }
 }
 
-//callback
-//start_receiving//
-//command dispatcher
-//
+void evdone(struct target_dev* d) {
+    d->ps_data->port->cleanup();
+    StartReceivingInt();
+}
+
 void StartIRReceiver() {
 
     CCPR1 = 0; //Timer data register zero (word)
@@ -53,15 +63,49 @@ void StartIRReceiver() {
 
 void TransmitISR() {
     if (INTCONbits.TMR0IF) {
-        io_c.target->protocol->tx(io_c.target, io_c.code);
-        //        io_c->target->protocol->tx(io_c->target, io_c->code);
-
-        //        if (dev.isBusy()) 
-        {
-
-            //CCP1CON = 0; //disable timer
-        }
-
+        io_c.target->send_bus(io_c.target, io_c.code);
         INTCONbits.TMR0IF = 0;
     }
 }
+
+extern target_dev* targets[];
+
+void ReceiveISR() {
+    if (PIR1bits.CCP1IF) {
+        //inverts edge detection 
+        CCP1CONbits.CCP1M0 = CCP1CONbits.CCP1M0 ^ 1;
+
+        uint16_t cval = ReadRxCapture();
+        
+        //ticks to microseconds
+        //TICS2US();) //cval = cval * 2 / 3;
+#define RX_RAW
+#if defined RX_RAW
+        rx_raw(cval); //todo:
+#endif
+        for (int i = 0; targets[i]; i++) {     
+            targets[i]->recv_bus(targets[i], cval);
+        }   
+          //&targets[i]->recv_bus(targets[i], cval);
+       // }
+
+        WriteRxTimer(0);
+
+        PIR1bits.CCP1IF = 0;
+    }
+
+/***************************************************************/    
+    
+    if (PIR1bits.TMR1IF) {
+#if defined RX_RAW
+        rx_raw_timeo();
+#endif
+        reset_rx();
+        CCP1CON = 0; 
+        //reset edge detection
+        IR_RCV ? CCP1CON = 0b100 : CCP1CON = 0b101;
+        PIR1bits.TMR1IF = 0;
+
+    }
+}
+

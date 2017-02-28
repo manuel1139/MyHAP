@@ -15,7 +15,7 @@ extern void send(struct target_dev*, uint16_t);
 void ps_init();
 void ps_close();
 
-tx_protocol pulse_space = { 
+tx_protocol txp_pulse_space = { 
     tx_pulse_space,
 };
 

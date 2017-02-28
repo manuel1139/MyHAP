@@ -77,8 +77,8 @@ void tx_pulse_space(struct target_dev* r, uint16_t code) {
             break;
         case done:
             d->send();
-//             evdone(r);
-            
+            evdone(r);
+            state = idle;
             break;
         default:
             break;

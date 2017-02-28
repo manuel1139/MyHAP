@@ -26,16 +26,8 @@
 #define LIGHT  0x000A
 #define STEST 0x80AB
 
-const uint16_t pollin_rf_rc_codes[] = {
-    S1_ON,
-    S1_OFF,
-    S2_ON,
-    S2_OFF,
-    S3_ON,
-    S3_OFF,
-    STEST,
-};
-#if 0
+
+const struct ps_details ps_pollin = {
     0x0, //header_a    
     0x03F0, //header_b
     0x043F, //pulse_one
@@ -44,13 +36,16 @@ const uint16_t pollin_rf_rc_codes[] = {
     0x0829, //space_zero
     0x0F00, //tail
     20,
-#endif
-struct target_dev pollin_rf_rc = {
-    "Pollin",
-    0x000B, //address
-    0,
-    &pulse_space,
     &hw_rf
+};
+    
+struct target_dev pollin = {
+    "Pollin wall plugs",
+    0x000B, //address
+    &tx_pulse_space,
+    &ps_pollin,
+    &send_ps
+            
 };
 
 #endif	/* T_POLLIN_H */

@@ -6,7 +6,7 @@
 
 #include "app_device_custom_hid.h"
 
-void send_ir(struct target_dev* d, uint16_t command) {
+void send_ps(struct target_dev* d, uint16_t command) {
     io_ctrl_send_cmd(d, command);
 }
 
