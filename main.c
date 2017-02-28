@@ -26,7 +26,7 @@
 #include "haapi.h"
 
 #include "t_yamaha.h"
-#include "t_minfinity.h"
+#include "t_pollin.h"
 #include "target_dev.h"
 #include "tx_usb.h"
 
@@ -45,6 +45,11 @@ void init_uart(void) {
 }
  */
 
+target_dev* targets[] = {
+    &yamaha,
+    0
+};
+
 int main(void) {
 
     SYSTEM_Initialize();
@@ -56,10 +61,11 @@ int main(void) {
     USBDeviceAttach();
 
     void send_usb(struct target_dev*, uint16_t);
-    
+
+#if 0
     target_dev dvb_srv = {
         //Name           //Adress     //port
-         "DVB-Server", 0xC0D1, &usb_d, 0, send_usb
+        "DVB-Server", 0xC0D1, &usb_d, 0, 0
     };
 
     /*
@@ -69,23 +75,18 @@ int main(void) {
     };
      */
 
+#endif
+
+
     //setup receiving hardware and start receiving/decoding
     StartIRReceiver();
     //io_control->StartIrReceiver())
-
+    //    SendCommand(&pollin, S1_ON);
     while (1) {
-        static uint32_t cntr = 0;
-        if (cntr++ > 100000ul) {
-            SendCommand(&dvb_srv, 0xabcd);
-            SendCommand(&yamaha, 0xabcd);
-            LED1 = LATAbits.LA5;
-            LED2 = LATAbits.LA5;
-        }
-        
-        
-        
+        LED2 = ~IR_RCV;
     }
 }
+
 
 bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size) {
     switch ((int) event) {
@@ -139,7 +140,7 @@ void high_priority interrupt high_isr(void) {
 
     USBDeviceTasks();
 
-    //    ReceiveISR();
+    ReceiveISR();
 
     TransmitISR();
 

@@ -6,6 +6,7 @@
  */
 
 #include "tx_pulse_space.h"
+#include "io_control.h"
 #include "hw_ir.h"
 #include "target_dev.h"
 
@@ -16,7 +17,7 @@
 #define Y_VOL_UP 0xA758
 #define Y_VOL_DOWN 0x27D8
 
-void send_ir(struct target_dev*, uint16_t);
+
 
 const struct ps_details p = {
     0x3504, //header_a
@@ -33,9 +34,10 @@ const struct ps_details p = {
 struct target_dev yamaha = {
     "Yamaha RCV",
     0xFF08,     //address
-    &pulse_space,
+    &rx_pulse_space,
     &p,
-    send_ir,
+    send_ps,
+    rx_pulse_space
  };
 
 

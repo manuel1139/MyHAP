@@ -13,11 +13,9 @@
 #include "target_dev.h"
 #include "io_control.h"
 
-typedef struct source_devs {
-};
 
 void SendCommand(struct target_dev *d, uint16_t code);
 void StartIRReceiver();
- 
+
 #endif	/* HAAPI_H */
 

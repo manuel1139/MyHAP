@@ -12,25 +12,18 @@
 
 #include "tx_protocol.h"
 #include "hw_port.h"
-
-typedef struct ps_details {
-    const uint16_t hdr_time_a;
-    const uint16_t hdr_time_b;
-    const uint16_t pulse_one;
-    const uint16_t space_one;
-    const uint16_t pulse_zero;
-    const uint16_t space_zero;
-    const uint16_t tail;
-    const uint8_t bit_cnt;
-    const hw_port* port;
-} ps_details;
+#include "dev_ps.h"
 
 typedef struct target_dev {
     const char* name;
     const uint16_t address;
-    const tx_protocol* protocol;
+    //const tx_protocol* protocol;
+    void (*tx_func)(struct target_dev*, uint16_t);
     const ps_details* ps_data;
     void (*send_bus)(struct target_dev*, uint16_t);
+    void (*recv_bus)(struct target_dev*, uint16_t);
 } target_dev;
+
+
 
 #endif	/* TARGET_DEV_H */
