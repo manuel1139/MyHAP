@@ -68,11 +68,13 @@ void tx_pulse_space(struct target_dev* r, uint16_t code) {
                 state = tail;
             }
             zero_or_one ? WriteTxTimer(0xFFFF - psd->pulse_one) :
-                WriteTxTimer(0xFFFF - psd-> space_zero);            
+                WriteTxTimer(0xFFFF - psd->space_zero);            
             break;
         case tail:
             d->send();
-            WriteTxTimer(0x0F00); //trailing pulse      
+            if (psd->tail != 0) {
+                WriteTxTimer(0xFFFF - psd->tail); //trailing pulse      
+            }
             state = done;
             break;
         case done:

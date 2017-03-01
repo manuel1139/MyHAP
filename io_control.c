@@ -8,6 +8,8 @@
 #include "timer_rx.h"
 #include "system.h"
 
+#define RX_RAW
+
 typedef struct {
     struct target_dev* target;
     uint16_t code;
@@ -22,8 +24,8 @@ void rx_raw_timeo();
 
 
 //stops ccp1 interrupt to disable receiving
-#define StopReceivingInt() PIE1bits.CCP1IE = 0;
-#define StartReceivingInt() PIE1bits.CCP1IE = 1;
+#define StopReceivingInt() PIE1bits.CCP1IE = 0; PIE1bits.TMR1IE = 0;
+#define StartReceivingInt() PIE1bits.CCP1IE = 1; PIE1bits.TMR1IE  = 1;
 
 void io_ctrl_send_cmd(struct target_dev *d, uint16_t code) {
     if (d->ps_data->port != 0) {
@@ -46,6 +48,7 @@ void io_ctrl_send_cmd(struct target_dev *d, uint16_t code) {
 
 void evdone(struct target_dev* d) {
     d->ps_data->port->cleanup();
+    io_c.isBusy = false;
     StartReceivingInt();
 }
 
@@ -63,7 +66,7 @@ void StartIRReceiver() {
 
 void TransmitISR() {
     if (INTCONbits.TMR0IF) {
-        io_c.target->send_bus(io_c.target, io_c.code);
+        io_c.target->tx_func(io_c.target, io_c.code);
         INTCONbits.TMR0IF = 0;
     }
 }
@@ -71,7 +74,7 @@ void TransmitISR() {
 extern target_dev* targets[];
 
 void ReceiveISR() {
-    if (PIR1bits.CCP1IF) {
+    if (PIE1bits.CCP1IE && PIR1bits.CCP1IF) {
         //inverts edge detection 
         CCP1CONbits.CCP1M0 = CCP1CONbits.CCP1M0 ^ 1;
 
@@ -79,7 +82,7 @@ void ReceiveISR() {
         
         //ticks to microseconds
         //TICS2US();) //cval = cval * 2 / 3;
-#define RX_RAW
+
 #if defined RX_RAW
         rx_raw(cval); //todo:
 #endif
@@ -96,7 +99,7 @@ void ReceiveISR() {
 
 /***************************************************************/    
     
-    if (PIR1bits.TMR1IF) {
+    if (PIE1bits.TMR1IE && PIR1bits.TMR1IF) {
 #if defined RX_RAW
         rx_raw_timeo();
 #endif

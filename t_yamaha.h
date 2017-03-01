@@ -33,8 +33,8 @@ const struct ps_details p = {
 
 struct target_dev yamaha = {
     "Yamaha RCV",
-    0xFF08,     //address
-    &rx_pulse_space,
+    0xA15E,     //address
+    tx_pulse_space,
     &p,
     send_ps,
     rx_pulse_space
