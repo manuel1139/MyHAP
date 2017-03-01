@@ -60,7 +60,6 @@ int main(void) {
     USBDeviceInit();
     USBDeviceAttach();
 
-    void send_usb(struct target_dev*, uint16_t);
 
 #if 0
     target_dev dvb_srv = {
@@ -77,17 +76,25 @@ int main(void) {
 
 #endif
 
+    void send_usb(struct target_dev*, uint16_t);
 
     //setup receiving hardware and start receiving/decoding
     StartIRReceiver();
     //io_control->StartIrReceiver())
-    //    SendCommand(&pollin, S1_ON);
+        //SendCommand(&pollin, S3_ON);
+    SendCommand(&yamaha, Y_VOL_UP);
+       
+    static uint32_t cntr = 0;
     while (1) {
-        LED2 = ~IR_RCV;
+        if (cntr++ >  1000000ul) {
+                SendCommand(&yamaha, Y_VOL_UP);
+                cntr=0;
+        }    
+        //LED2 = ~IR_RCV;
     }
 }
 
-
+ 
 bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size) {
     switch ((int) event) {
         case EVENT_TRANSFER:

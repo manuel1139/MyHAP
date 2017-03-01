@@ -137,7 +137,7 @@
         <targetDevice>PIC18F2550</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PICkit3PlatformTool</platformTool>
+        <platformTool>Simulator</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>1.41</languageToolchainVersion>
         <platform>3</platform>
@@ -782,6 +782,8 @@
         </HI-TECH-LINK>
         <XC8-config-global>
         </XC8-config-global>
+      </item>
+      <item path="tx_usb.h" ex="true" overriding="false">
       </item>
     </conf>
     <conf name="18f2450" type="2">
