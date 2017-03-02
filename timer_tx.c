@@ -12,7 +12,7 @@
 #include <xc.h>
 #include <stdint.h>
 
-#include "tx_timer.h"
+#include "timer_tx.h"
 
 void OpenTxTimer() {
     T0CON = 0b10000010;

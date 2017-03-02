@@ -1,6 +1,9 @@
 #include "hw_port.h"
 #include "pwm.h"
-#include "tx_timer.h"
+#include "timer_tx.h"
+
+#include <xc.h>
+#include "system.h"
 
 void ir_send() {
     TogglePWM(); //start sending 38khz pulse

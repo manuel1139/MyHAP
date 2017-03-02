@@ -2,7 +2,7 @@
 
 #include "hw_port.h"
 #include "system.h"
-#include "tx_timer.h"
+#include "timer_tx.h"
 #include "pwm.h"
 
 void rf_send() {

@@ -28,7 +28,7 @@
 #include "t_yamaha.h"
 #include "t_pollin.h"
 #include "target_dev.h"
-#include "tx_usb.h"
+
 
 /*
  * 
@@ -82,11 +82,12 @@ int main(void) {
     StartIRReceiver();
     //io_control->StartIrReceiver())
         //SendCommand(&pollin, S3_ON);
+
     SendCommand(&yamaha, Y_VOL_UP);
        
     static uint32_t cntr = 0;
     while (1) {
-        if (cntr++ >  1000000ul) {
+        if (cntr++ >  500000ul) {
                 SendCommand(&yamaha, Y_VOL_UP);
                 cntr=0;
         }    
