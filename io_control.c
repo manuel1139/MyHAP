@@ -36,11 +36,11 @@ void io_ctrl_send_cmd(struct target_dev *d, uint16_t code) {
             
             //stop receiving to avoid receiving our own data
             StopReceivingInt();
-
+            
             d->ps_data->port->init();
 
             //start sending codes on the wire
-            INTCONbits.TMR0IF; //hack to avoid duplicate function generation
+            INTCONbits.TMR0IF = 1; //hack to avoid duplicate function generation
             //r->protocol->tx(r);   //instead of this
         }
     }

@@ -32,7 +32,7 @@ read as ?0?.
 #define RF_OUT LATAbits.LATA5
 
 #define IR_OUT_TRIS TRISBbits.TRISB3
-#define IR_OUT LATBbits.RB3
+#define IR_OUT LATBbits.LB3
 
 #define LED1_TRIS TRISBbits.RB5
 #define LED1 LATBbits.LB5

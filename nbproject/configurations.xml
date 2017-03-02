@@ -62,10 +62,8 @@
       <itemPath>tx_pulse_space.h</itemPath>
       <itemPath>tx_rc5.h</itemPath>
       <itemPath>hw_port.h</itemPath>
-      <itemPath>tx_timer.h</itemPath>
       <itemPath>io_control.h</itemPath>
       <itemPath>tx_protocol.h</itemPath>
-      <itemPath>tx_usb.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -88,6 +86,8 @@
         <logicalFolder name="f2" displayName="18f2x5x" projectFiles="true">
           <itemPath>hal/18f2x5x/capture.c</itemPath>
           <itemPath>hal/18f2x5x/timer_rx.c</itemPath>
+          <itemPath>pwm_tx.c</itemPath>
+          <itemPath>timer_tx.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="system_config" projectFiles="true">
@@ -110,12 +110,9 @@
       <itemPath>hw_ir.c</itemPath>
       <itemPath>haapi.c</itemPath>
       <itemPath>tx_rc5.c</itemPath>
-      <itemPath>tx_timer.c</itemPath>
-      <itemPath>tx_pwm.c</itemPath>
       <itemPath>io_control.c</itemPath>
-      <itemPath>tx_usb.c</itemPath>
-      <itemPath>receive_pulse_space.c</itemPath>
-      <itemPath>receive_raw.c</itemPath>
+      <itemPath>rx_pulse_space.c</itemPath>
+      <itemPath>rx_raw.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -137,7 +134,7 @@
         <targetDevice>PIC18F2550</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>Simulator</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>1.41</languageToolchainVersion>
         <platform>3</platform>
@@ -282,7 +279,6 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -782,8 +778,6 @@
         </HI-TECH-LINK>
         <XC8-config-global>
         </XC8-config-global>
-      </item>
-      <item path="tx_usb.h" ex="true" overriding="false">
       </item>
     </conf>
     <conf name="18f2450" type="2">
@@ -5271,14 +5265,6 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="tx_pwm.c" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
       <item path="tx_rc5.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -5288,22 +5274,6 @@
         </XC8-config-global>
       </item>
       <item path="tx_rc5.h" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
-      <item path="tx_timer.c" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
-      <item path="tx_timer.h" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>

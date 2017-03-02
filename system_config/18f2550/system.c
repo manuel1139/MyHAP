@@ -5,10 +5,7 @@
 #include "usb_config.h"
 
 void SYSTEM_Initialize(void)
-{
- 
-    //todo: check 38khz/40khz PWM for IR-OUT 
-    
+{    
     ADCON1 = 0x0f;  //All PORTABits DIGITAL
  
     /*******************************************************************/
@@ -28,7 +25,6 @@ void SYSTEM_Initialize(void)
     LED2_TRIS = OUTPUT_PIN;
   
     DEAD_PIN_TRIS = INPUT_PIN;
-    
-    
+       
 }
 
