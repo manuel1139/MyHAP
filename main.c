@@ -27,6 +27,9 @@
 
 #include "t_yamaha.h"
 #include "t_pollin.h"
+#include "t_test.h"
+#include "t_horizon.h"
+
 #include "target_dev.h"
 
 
@@ -47,6 +50,7 @@ void init_uart(void) {
 
 target_dev* targets[] = {
     &yamaha,
+    &horizon,
     0
 };
 
@@ -83,12 +87,12 @@ int main(void) {
     //io_control->StartIrReceiver())
         //SendCommand(&pollin, S3_ON);
 
-    SendCommand(&yamaha, Y_VOL_UP);
+    //SendCommand(&testd, Y_VOL_UP);
        
     static uint32_t cntr = 0;
     while (1) {
-        if (cntr++ >  500000ul) {
-                SendCommand(&yamaha, Y_VOL_UP);
+        if (cntr++ >  300000ul) {
+ //               SendCommand(&yamaha, Y_VOL_UP);
                 cntr=0;
         }    
         //LED2 = ~IR_RCV;
