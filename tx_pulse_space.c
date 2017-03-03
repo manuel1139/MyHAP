@@ -60,9 +60,9 @@ void tx_pulse_space(struct target_dev* r, uint16_t code) {
                     WriteTxTimer(0xFFFF - psd->pulse_zero);
             break;
         case second_edge:
-            d->send();          
-            if (bit_cnt < (psd->bit_cnt)) {
-                bit_cnt++;
+            d->send();         
+            bit_cnt++;
+            if (bit_cnt < (psd->bit_cnt)) {                
                 state = first_edge;
             } else {
                 state = tail;
@@ -71,16 +71,22 @@ void tx_pulse_space(struct target_dev* r, uint16_t code) {
                 WriteTxTimer(0xFFFF - psd->space_zero);            
             break;
         case tail:
-            //d->send();
             if (psd->tail != 0) {
+                d->send();         
                 WriteTxTimer(0xFFFF - psd->tail); //trailing pulse      
+            } else {
+                WriteTxTimer(0xFFFF - 0x1000); //
             }
             state = done;
-            break;
+            break;         
         case done:
-            //d->send();
+            if (psd->tail != 0) {
+                d->send();         
+            }
+    
             evdone(r);
             state = idle;
+            bit_cnt=0;
             break;
         default:
             break;

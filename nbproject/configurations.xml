@@ -9,6 +9,8 @@
         <itemPath>t_pollin.h</itemPath>
         <itemPath>target_dev.h</itemPath>
         <itemPath>t_dvbsrv.h</itemPath>
+        <itemPath>t_test.h</itemPath>
+        <itemPath>t_horizon.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="usb" projectFiles="true">
@@ -279,6 +281,7 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

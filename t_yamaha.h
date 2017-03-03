@@ -26,7 +26,7 @@ const struct ps_details p = {
     0x029B, //b_1
     0x0394, //a_0
     0x0914, //b_0
-    0, //tail
+    0x0392, //tail
     32,
     &hw_ir
 };

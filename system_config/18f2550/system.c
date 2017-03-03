@@ -17,11 +17,16 @@ void SYSTEM_Initialize(void)
     
     RCONbits.IPEN = 1; //Interrupt priority
     
+    IR_OUT = 0;
     IR_OUT_TRIS = OUTPUT_PIN;
         
+    RF_OUT = 0;
     RF_OUT_TRIS = OUTPUT_PIN;
 
+    LED1 = 0 ;
     LED1_TRIS = OUTPUT_PIN;
+    
+    LED2 = 0;
     LED2_TRIS = OUTPUT_PIN;
   
     DEAD_PIN_TRIS = INPUT_PIN;

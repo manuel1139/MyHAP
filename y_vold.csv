@@ -1,0 +1,10 @@
+edge_times[1], 0x352E,
+edge_times[2], 0x199F,
+edge_times[65], 0x0366,  bit32
+edge_times[66], 0x0934,  
+
+edge_times[67], 0x0367,
+
+edge_times[68], 0xEB2D,
+
+edge_times[69], 0x3500,
