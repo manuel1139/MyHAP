@@ -5,6 +5,8 @@
 #include "system.h"
 #include "target_dev.h"
 
+#include "t_test.h"
+
 bool chk_bit_bounds(const struct ps_details* r, uint16_t a, uint16_t b) {
 
     uint16_t diff_a, diff_b;
@@ -60,7 +62,7 @@ void reset_rx() {
     bits = 0;
 }
 
-void rx_pulse_space(struct target_dev* r, uint16_t bit_time) {
+void rx_pulse_space(struct ps_dev* r, uint16_t bit_time) {
 
     const struct ps_details* psd =  r->ps_data;
     

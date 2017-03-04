@@ -4,8 +4,9 @@
 #include "target_dev.h"
 #include "hw_port.h"
 #include "timer_tx.h"
-
+#include "dev_ps.h"
 #include "system.h"
+#include "t_test.h"
 
 typedef enum {
     idle,
@@ -22,7 +23,7 @@ states state = idle;
 
 extern void evdone(struct target_dev* r);
 
-void tx_pulse_space(struct target_dev* r, uint16_t code) {
+void tx_pulse_space(const struct ps_dev* r, uint16_t code) {
 
     const struct hw_port* d = r->ps_data->port;
     const struct ps_details* psd =  r->ps_data;

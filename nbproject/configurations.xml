@@ -11,6 +11,7 @@
         <itemPath>t_dvbsrv.h</itemPath>
         <itemPath>t_test.h</itemPath>
         <itemPath>t_horizon.h</itemPath>
+        <itemPath>dev_ps.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="usb" projectFiles="true">
@@ -61,11 +62,8 @@
       <itemPath>haapi.h</itemPath>
       <itemPath>hw_ir.h</itemPath>
       <itemPath>hw_rf.h</itemPath>
-      <itemPath>tx_pulse_space.h</itemPath>
-      <itemPath>tx_rc5.h</itemPath>
       <itemPath>hw_port.h</itemPath>
       <itemPath>io_control.h</itemPath>
-      <itemPath>tx_protocol.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -4968,6 +4966,8 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
+      <item path="dev_ps.h" ex="true" overriding="false">
+      </item>
       <item path="haapi.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -5212,6 +5212,10 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
+      <item path="t_dvbsrv.h" ex="true" overriding="false">
+      </item>
+      <item path="t_horizon.h" ex="true" overriding="false">
+      </item>
       <item path="t_pollin.h" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -5219,6 +5223,8 @@
         </HI-TECH-LINK>
         <XC8-config-global>
         </XC8-config-global>
+      </item>
+      <item path="t_test.h" ex="true" overriding="false">
       </item>
       <item path="t_yamaha.h" ex="true" overriding="false">
         <HI-TECH-COMP>
@@ -5244,14 +5250,6 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="tx_protocol.h" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
       <item path="tx_pulse_space.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -5260,23 +5258,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="tx_pulse_space.h" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
       <item path="tx_rc5.c" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
-      <item path="tx_rc5.h" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>

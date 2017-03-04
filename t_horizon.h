@@ -8,6 +8,7 @@
 #ifndef T_HORIZON_H
 #define	T_HORIZON_H
 
+#include "haapi.h"
 
 const struct ps_details p_h_1 = {
     0x19CD, //header_a
@@ -22,8 +23,8 @@ const struct ps_details p_h_1 = {
 };
 
 const struct ps_details p_h_2 = {
-    0x3504, //header_a
-    0x19CD, //header_b
+    0x0,
+    0x3504, //sync
     0x0392, //a_1
     0x029B, //b_1
     0x0394, //a_0
@@ -38,8 +39,6 @@ struct target_dev horizon = {
     "Horizon",
     0x0,     //address
     tx_pulse_space,
-    &p,
-    send_ps,
     rx_pulse_space
  };
 

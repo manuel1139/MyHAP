@@ -1,8 +1,4 @@
-#include <xc.h>
-
-#include "tx_rc5.h"
 #include "target_dev.h"
-#include "timer_tx.h"
 
 typedef enum {
     idle,

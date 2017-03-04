@@ -15,8 +15,6 @@ void TransmitISR();
 void ReceiveISR();
 
 void io_ctrl_send_cmd(struct target_dev *d, uint16_t code);
-
-void rx_pulse_space(struct target_dev*, uint16_t);
 void send_ps(struct target_dev*, uint16_t);
 
 void reset_rx();

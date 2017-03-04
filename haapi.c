@@ -3,10 +3,10 @@
 #include "haapi.h"
 #include "target_dev.h"
 #include "io_control.h"
-
+#include "t_test.h"
 #include "app_device_custom_hid.h"
 
-void send_ps(struct target_dev* d, uint16_t command) {
+void tx_pulse_space(const struct ps_dev* d, uint16_t command) {
     io_ctrl_send_cmd(d, command);
 }
 

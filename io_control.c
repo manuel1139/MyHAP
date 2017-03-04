@@ -7,6 +7,7 @@
 #include "pwm.h"
 #include "timer_rx.h"
 #include "system.h"
+#include "t_test.h"
 
 #define RX_RAW
 
@@ -27,7 +28,11 @@ void rx_raw_timeo();
 #define StopReceivingInt() PIE1bits.CCP1IE = 0; PIE1bits.TMR1IE = 0;
 #define StartReceivingInt() PIE1bits.CCP1IE = 1; PIE1bits.TMR1IE  = 1;
 
-void io_ctrl_send_cmd(struct target_dev *d, uint16_t code) {
+void io_ctrl_send_samsung(const struct test_dev* d, uint16_t code) {
+    
+}
+
+void io_ctrl_send_cmd(ocnst struct ps_dev *d, uint16_t code) {   
     if (d->ps_data->port != 0) {
         if (!io_c.isBusy) {
             io_c.isBusy = true;

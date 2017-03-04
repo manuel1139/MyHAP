@@ -5,10 +5,11 @@
  * Created on 17. Februar 2017, 22:44
  */
 
-#include "tx_pulse_space.h"
+#include "haapi.h"
 #include "io_control.h"
 #include "hw_ir.h"
 #include "target_dev.h"
+#include "dev_ps.h"
 
 #ifndef T_YAMAHA_H
 #define	T_YAMAHA_H
@@ -16,8 +17,6 @@
 //remote keys
 #define Y_VOL_UP 0xA758
 #define Y_VOL_DOWN 0x27D8
-
-
 
 const struct ps_details p = {
     0x3504, //header_a
@@ -34,10 +33,8 @@ const struct ps_details p = {
 struct target_dev yamaha = {
     "Yamaha RCV",
     0xA15E,     //address
-    tx_pulse_space,
-    &p,
-    send_ps,
-    rx_pulse_space
+    &tx_pulse_space,
+    &rx_pulse_space
  };
 
 

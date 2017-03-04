@@ -8,7 +8,7 @@
 #ifndef T_POLLIN_H
 #define	T_POLLIN_H
 
-#include "tx_pulse_space.h"
+#include "haapi.h"
 #include "hw_rf.h"
 
 //Pollin RF Remote wall plugs and dimmers
@@ -43,9 +43,7 @@ struct target_dev pollin = {
     "Pollin wall plugs",
     0x000B, //address
     &tx_pulse_space,
-    &ps_pollin,
-    &send_ps
-            
+    &rx_pulse_space
 };
 
 #endif	/* T_POLLIN_H */

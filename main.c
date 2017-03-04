@@ -83,8 +83,6 @@ int main(void) {
 
 #endif
 
-    void send_usb(struct target_dev*, uint16_t);
-
     //setup receiving hardware and start receiving/decoding
     StartIRReceiver();
     //io_control->StartIrReceiver())
