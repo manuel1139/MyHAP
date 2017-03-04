@@ -32,8 +32,7 @@
 
 #include "target_dev.h"
 
-#define DEBUG
-
+//#define DEBUG
 #ifdef DEBUG
 
 /*
