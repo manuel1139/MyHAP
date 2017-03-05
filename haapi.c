@@ -1,20 +1,20 @@
 #include <stdint.h>
 
 #include "haapi.h"
-#include "target_dev.h"
 #include "io_control.h"
-#include "t_test.h"
 #include "app_device_custom_hid.h"
 
-void tx_pulse_space(const struct ps_dev* d, uint16_t command) {
-    io_ctrl_send_cmd(d, command);
+
+void send_ps(dev_target* td, code c) {
+    dev_ps* d = (dev_ps*) td;
+    io_ctrl_send_cmd(d, c);
 }
 
-void send_usb(struct target_dev* d, uint16_t command) {
+void send_usb(device* d, code command) {
     HIDSend(command);
 }
 
-void SendCommand(struct target_dev *d, uint16_t code) {
+void SendCommand(dev_target *d, code code) {
     //    d->protocol->tx(d, code);
     d->send_bus(d, code);
 }

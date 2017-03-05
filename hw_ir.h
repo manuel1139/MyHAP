@@ -14,7 +14,7 @@ void ir_send();
 void ir_init();
 void ir_cleanup();
 
-hw_port hw_ir = {
+const hw_port hw_ir = {
     ir_init,
     ir_cleanup,            
     ir_send,

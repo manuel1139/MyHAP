@@ -1,12 +1,12 @@
 /* 
- * File:   t_pollin.h
+ * File:   pollin.h
  * Author: manuel
  *
  * Created on 19. Februar 2017, 01:35
  */
 
-#ifndef T_POLLIN_H
-#define	T_POLLIN_H
+#ifndef POLLIN_H
+#define	POLLIN_H
 
 #include "haapi.h"
 #include "hw_rf.h"
@@ -27,24 +27,21 @@
 #define STEST 0x80AB
 
 
-const struct ps_details ps_pollin = {
-    0x0, //header_a    
-    0x03F0, //header_b
-    0x043F, //pulse_one
-    0x07B2, //space_one
-    0x03C8, //pulse_zero
-    0x0829, //space_zero
-    0x0F00, //tail
-    20,
-    &hw_rf
-};
-    
-struct target_dev pollin = {
+dev_ps yamaha = {
     "Pollin wall plugs",
     0x000B, //address
-    &tx_pulse_space,
-    &rx_pulse_space
+    &send_ps,
+    0,   //us header pulse
+    0x03F0,   //us header space
+    0x043F,    //us zero pulse
+    0x07B2,    //us zero space
+    0x03C8,    //us one pulse
+    0x0829,    //us one space
+    0x0F00,    //tail
+    20,     //bit count
+    &hw_ir, //ir 
+    &tx_ps  //protocol 
 };
 
-#endif	/* T_POLLIN_H */
+#endif	/* POLLIN_H */
 

@@ -10,17 +10,79 @@
 
 #include <stdint.h>
 
-#include "target_dev.h"
-#include "io_control.h"
+#include "hw_port.h"
+
+typedef const uint16_t address;
+typedef const uint16_t code;
+
+typedef const uint16_t time_val;
+
+typedef const uint16_t pulse;
+typedef const uint16_t space;
+
+typedef struct ps {
+    pulse pulse;
+    space space;
+} ps;
+
+typedef struct command {
+    address addr;
+    code code;
+} command;
+
+typedef struct device {
+    const char *name;
+    address addr;
+} device;
 
 
+typedef struct dev_src {
+    device dev;
+    void (*recv_bus)(device*, time_val);
+} dev_src;
+
+typedef struct dev_target {
+    device dev;
+    void (*send_bus)(struct dev_target*, code);
+} dev_target;
+
+typedef struct dev_ps {
+    dev_target devtrgt;
+    ps header;
+    ps zero;
+    ps one;
+    pulse tail;
+    uint8_t bit_cnt;
+    const hw_port* hw_port;
+    void (*tx_prot)(struct dev_ps*, code);
+} dev_ps;
+
+//samsung protocol
+typedef struct dev_samsung {
+    dev_target dev;
+    ps header;
+    ps zero;
+    ps one;
+    ps sync;
+    pulse stop;
+    uint8_t bit_cnt_address;
+    uint8_t bit_cnt_code;
+    const hw_port* hw_port;
+    void (*tx_prot)(dev_ps*, code);
+} dev_samsung;
+
+void send_ps(dev_target*, code);
+void send_horizon(dev_target*, code);
+
+
+void tx_ps(dev_ps*, code);
+
+#if 0
 void tx_usb(struct target_dev*, uint16_t);
-void rx_pulse_space(struct ps_dev* r, uint16_t bit_time) {
+void rx_pulse_space(struct ps_dev* r, uint16_t bit_time);
 void tx_rc5(struct target_dev*, uint16_t);
-
-void tx_pulse_space(const struct ps_dev* r, uint16_t code);
-
-void SendCommand(struct target_dev *d, uint16_t code);
+#endif 
+void SendCommand(dev_target *d, code code);
 void StartIRReceiver();
 
 #endif	/* HAAPI_H */
