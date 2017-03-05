@@ -113,6 +113,7 @@
       <itemPath>io_control.c</itemPath>
       <itemPath>rx_pulse_space.c</itemPath>
       <itemPath>rx_raw.c</itemPath>
+      <itemPath>main_test.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -707,6 +708,14 @@
         </XC8-config-global>
       </item>
       <item path="hal/12f683/timer_rx.h" ex="true" overriding="false">
+        <HI-TECH-COMP>
+        </HI-TECH-COMP>
+        <HI-TECH-LINK>
+        </HI-TECH-LINK>
+        <XC8-config-global>
+        </XC8-config-global>
+      </item>
+      <item path="main_test.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -3551,6 +3560,14 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
+      <item path="main_test.c" ex="true" overriding="false">
+        <HI-TECH-COMP>
+        </HI-TECH-COMP>
+        <HI-TECH-LINK>
+        </HI-TECH-LINK>
+        <XC8-config-global>
+        </XC8-config-global>
+      </item>
       <item path="rx_main.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4183,6 +4200,14 @@
         </XC8-config-global>
       </item>
       <item path="hal/12f683/timer_rx.h" ex="true" overriding="false">
+        <HI-TECH-COMP>
+        </HI-TECH-COMP>
+        <HI-TECH-LINK>
+        </HI-TECH-LINK>
+        <XC8-config-global>
+        </XC8-config-global>
+      </item>
+      <item path="main_test.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5024,7 +5049,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="hal/18f2x5x/capture.h" ex="true" overriding="false">
+      <item path="hal/18f2x5x/capture.h" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5040,7 +5065,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="hal/18f2x5x/timer_rx.h" ex="true" overriding="false">
+      <item path="hal/18f2x5x/timer_rx.h" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5048,7 +5073,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="hw_ir.c" ex="true" overriding="false">
+      <item path="hw_ir.c" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5056,7 +5081,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="hw_ir.h" ex="true" overriding="false">
+      <item path="hw_ir.h" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5064,7 +5089,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="hw_port.h" ex="true" overriding="false">
+      <item path="hw_port.h" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5072,7 +5097,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="hw_rf.c" ex="true" overriding="false">
+      <item path="hw_rf.c" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5080,7 +5105,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="hw_rf.h" ex="true" overriding="false">
+      <item path="hw_rf.h" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5112,6 +5137,14 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
+      <item path="main_test.c" ex="false" overriding="false">
+        <HI-TECH-COMP>
+        </HI-TECH-COMP>
+        <HI-TECH-LINK>
+        </HI-TECH-LINK>
+        <XC8-config-global>
+        </XC8-config-global>
+      </item>
       <item path="rx_main.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -5119,6 +5152,10 @@
         </HI-TECH-LINK>
         <XC8-config-global>
         </XC8-config-global>
+      </item>
+      <item path="rx_pulse_space.c" ex="true" overriding="false">
+      </item>
+      <item path="rx_raw.c" ex="true" overriding="false">
       </item>
       <item path="system_config/12f683/system.c" ex="true" overriding="false">
         <HI-TECH-COMP>
