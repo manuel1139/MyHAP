@@ -8,6 +8,9 @@
 #ifndef TERRATEC_H
 #define	TERRATEC_H
 
+#include "hw_ir.h"
+#include "haapi.h"
+
 #define KEY_1 0x40BF
 #define KEY_2 0xC03F
 #define KEY_3 0x20DF
@@ -24,26 +27,22 @@ const uint16_t terratec_ir_rc_codes[] = {
     KEY_6, KEY_7, KEY_8, KEY_9
 };
 
-device terratec = {
+
+
+remote terratec = {
     "Terratec",
-#if 0
-    0x3575, //header_a
-    0x199C, //header_b
-    0x0385,
-    0x08E5,
-    0x03BD, //low
-    0x026F, //high
-    0, //tail
-    0x28D7, //pre_code
-    32,
-    &init_rx,
-    &init_tx,
-    &ir_rx_pulse_space, //rx_func
-    0, //tx_func
-    &terratec_ir_rc_codes[0],
-    idle
-#endif
-}; 
+    0x28D7,
+    9000,
+    4500,
+    530,
+    600,
+    530,
+    600,
+    0,
+    16,
+    &hw_ir,
+    &rx_ps,
+};
 
 #endif	/* TERRATEC_H */
 

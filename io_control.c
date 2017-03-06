@@ -71,6 +71,7 @@ void TransmitISR() {
     }
 }
 
+extern remote *remotes[];
 
 
 void ReceiveISR() {
@@ -86,14 +87,10 @@ void ReceiveISR() {
 #if defined RX_RAW
         rx_raw(cval); //todo:
 #endif
-//        for (int i = 0; remotes[i]; i++) {
-//            remotes[i]->recv_bus(remotes[i], cval);
-//        }
-        //&targets[i]->recv_bus(targets[i], cval);
-        // }
-
+        for (int i = 0; remotes[i]; i++) {
+            remotes[i]->rx_prot(remotes[i], cval);
+        }
         WriteRxTimer(0);
-
         PIR1bits.CCP1IF = 0;
     }
 
@@ -103,7 +100,7 @@ void ReceiveISR() {
 #if defined RX_RAW
         rx_raw_timeo();
 #endif
-        reset_rx();
+//        reset_rx();
         CCP1CON = 0;
         //reset edge detection
         IR_RCV ? CCP1CON = 0b100 : CCP1CON = 0b101;
@@ -112,3 +109,11 @@ void ReceiveISR() {
     }
 }
 
+
+/*
+void reset_rx() {
+    state = idle;
+    t_first_edge = 0;
+    bit_id = 0;
+    bits = 0;
+ }*/

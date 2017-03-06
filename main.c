@@ -46,10 +46,8 @@ void init_uart(void) {
 }
 #endif
 
-device *remotes[] = {
-//    &terratec_ir_rc,
+remote *remotes[] = {
     &terratec,
-//    &minfiniy_led,
     0
 };
 

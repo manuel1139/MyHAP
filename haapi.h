@@ -37,10 +37,16 @@ typedef struct device {
 } device;
 
 
-typedef struct dev_src {
+typedef struct remote {
     device dev;
-    void (*recv_bus)(device*, time_val);
-} dev_src;
+    ps header;
+    ps zero;
+    ps one;
+    pulse tail;
+    uint8_t bit_cnt;
+    const hw_port* hw_port;
+    void (*rx_prot)(struct remote*, time_val);   
+} remote;
 
 typedef struct dev_target {
     device dev;
@@ -77,7 +83,11 @@ void send_rc5(dev_target*, code);
 void send_horizon(dev_target*, code);
 void send_usb(dev_target*, code);
 
+void recv_ps(remote*, code);
+
 void tx_ps(dev_ps*, code);
+void rx_ps(remote* r, uint16_t);
+
 void HIDSend(code);
 #if 0
 

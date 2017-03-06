@@ -8,5 +8,11 @@
 #ifndef DVBSRV_SRC_H
 #define	DVBSRV_SRC_H
 
+remote dvbsrv_rc = {
+    "DVB Server",
+    0x0,
+    
+}
+
 #endif	/* DVBSRV_SRC_H */
 
