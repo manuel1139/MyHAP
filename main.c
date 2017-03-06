@@ -25,12 +25,7 @@
 
 #include "haapi.h"
 
-#include "t_yamaha.h"
-#include "t_pollin.h"
-#include "t_test.h"
-#include "t_horizon.h"
-
-#include "target_dev.h"
+#include "terratec.h"
 
 //#define DEBUG
 #ifdef DEBUG
@@ -51,9 +46,10 @@ void init_uart(void) {
 }
 #endif
 
-target_dev* targets[] = {
-    &yamaha,
-    &horizon,
+device *remotes[] = {
+//    &terratec_ir_rc,
+    &terratec,
+//    &minfiniy_led,
     0
 };
 
@@ -148,6 +144,9 @@ bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size
     }
     return true;
 }
+
+extern TransmitISR();
+extern ReceiveISR();
 
 void high_priority interrupt high_isr(void) {
 

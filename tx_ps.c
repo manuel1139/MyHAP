@@ -8,8 +8,7 @@
 
 #include "haapi.h"
 #include "timer_tx.h"
-
-#define U2T(x) x*3/2    //us to ticks @12Mhz IC
+#include "io_control.h"
 
 typedef enum {
     idle,
@@ -82,7 +81,7 @@ void tx_ps(dev_ps* y, code c) {
             if (y->tail != 0) {
                 d->send();
             }            
-            //            evdone(r);
+            evdone(y);
             state = idle;
             bit_cnt = 0;
             break;

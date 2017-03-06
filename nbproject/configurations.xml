@@ -8,6 +8,7 @@
         <itemPath>horizon.h</itemPath>
         <itemPath>yamaha.h</itemPath>
         <itemPath>pollin.h</itemPath>
+        <itemPath>dvbsrv_trgt.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="usb" projectFiles="true">
@@ -36,6 +37,10 @@
           <itemPath>timer_tx.h</itemPath>
           <itemPath>pwm.h</itemPath>
         </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="remotes" projectFiles="true">
+        <itemPath>terratec.h</itemPath>
+        <itemPath>dvbsrv_src.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="system_config" projectFiles="true">
         <logicalFolder name="f3" displayName="12f683" projectFiles="true">
@@ -101,13 +106,10 @@
       <itemPath>app_device_custom_hid.c</itemPath>
       <itemPath>usb_descriptors.c</itemPath>
       <itemPath>rx_main.c</itemPath>
-      <itemPath>tx_pulse_space.c</itemPath>
       <itemPath>hw_rf.c</itemPath>
       <itemPath>hw_ir.c</itemPath>
       <itemPath>haapi.c</itemPath>
-      <itemPath>tx_rc5.c</itemPath>
       <itemPath>io_control.c</itemPath>
-      <itemPath>rx_pulse_space.c</itemPath>
       <itemPath>rx_raw.c</itemPath>
       <itemPath>main_test.c</itemPath>
       <itemPath>tx_ps.c</itemPath>
@@ -4391,7 +4393,7 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4401,7 +4403,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_ch9.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4411,7 +4413,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_common.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4421,7 +4423,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_device.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4431,7 +4433,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_device_ccid.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4441,7 +4443,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_device_generic.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4451,7 +4453,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_device_hid.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4461,7 +4463,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_hal.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4471,7 +4473,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_hal_pic16f1.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4481,7 +4483,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_hal_pic18.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4491,7 +4493,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_hid.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4501,7 +4503,7 @@
         </XC8-config-global>
       </item>
       <item path="../../../../../../microchip/mla/framework/usb/inc/usb_struct_queue.h"
-            ex="true"
+            ex="false"
             overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -4646,6 +4648,7 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -4736,6 +4739,13 @@
         <property key="periphComp6.gte" value="gt"/>
         <property key="reset.scl" value="false"/>
         <property key="reset.type" value="MCLR"/>
+        <property key="tracecontrol.include.timestamp" value="summarydataenabled"/>
+        <property key="tracecontrol.select" value="0"/>
+        <property key="tracecontrol.stallontracebufferfull" value="false"/>
+        <property key="tracecontrol.timestamp" value="0"/>
+        <property key="tracecontrol.tracebufmax" value="546000"/>
+        <property key="tracecontrol.tracefile" value="defmplabxtrace.log"/>
+        <property key="tracecontrol.traceresetonrun" value="false"/>
         <property key="uart10io.output" value="window"/>
         <property key="uart10io.outputfile" value=""/>
         <property key="uart10io.uartioenabled" value="false"/>
@@ -5041,7 +5051,7 @@
         <property key="stack-size-main" value="auto"/>
         <property key="stack-type" value="compiled"/>
       </XC8-config-global>
-      <item path="app_device_custom_hid.c" ex="true" overriding="false">
+      <item path="app_device_custom_hid.c" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5049,7 +5059,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="app_device_custom_hid.h" ex="true" overriding="false">
+      <item path="app_device_custom_hid.h" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5185,7 +5195,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="io_control.h" ex="true" overriding="false">
+      <item path="io_control.h" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5218,14 +5228,6 @@
         </XC8-config-global>
       </item>
       <item path="rx_main.c" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
-      <item path="rx_pulse_space.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -5343,22 +5345,6 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="tx_pulse_space.c" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
-      <item path="tx_rc5.c" ex="true" overriding="false">
-        <HI-TECH-COMP>
-        </HI-TECH-COMP>
-        <HI-TECH-LINK>
-        </HI-TECH-LINK>
-        <XC8-config-global>
-        </XC8-config-global>
-      </item>
       <item path="usb_config.h" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
@@ -5367,7 +5353,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="usb_descriptors.c" ex="true" overriding="false">
+      <item path="usb_descriptors.c" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>

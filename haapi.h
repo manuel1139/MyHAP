@@ -11,6 +11,7 @@
 #include <stdint.h>
 
 #include "hw_port.h"
+#include "app_device_custom_hid.h"
 
 typedef const uint16_t address;
 typedef const uint16_t code;
@@ -72,13 +73,14 @@ typedef struct dev_samsung {
 } dev_samsung;
 
 void send_ps(dev_target*, code);
+void send_rc5(dev_target*, code);
 void send_horizon(dev_target*, code);
-
+void send_usb(dev_target*, code);
 
 void tx_ps(dev_ps*, code);
-
+void HIDSend(code);
 #if 0
-void tx_usb(struct target_dev*, uint16_t);
+
 void rx_pulse_space(struct ps_dev* r, uint16_t bit_time);
 void tx_rc5(struct target_dev*, uint16_t);
 #endif 

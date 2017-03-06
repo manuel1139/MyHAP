@@ -10,8 +10,8 @@ void send_ps(dev_target* td, code c) {
     io_ctrl_send_cmd(d, c);
 }
 
-void send_usb(device* d, code command) {
-    HIDSend(command);
+void send_usb(dev_target* d, code c) {
+    HIDSend(c);
 }
 
 void SendCommand(dev_target *d, code code) {

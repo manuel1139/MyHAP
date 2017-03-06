@@ -45,7 +45,7 @@ void io_ctrl_send_cmd(dev_ps* d,  code c) {
     }
 }
 
-void evdone(struct target_dev* dt) {
+void evdone(struct dev_ps* dt) {
     dev_ps* d = (dev_ps*) dt;
     d->hw_port->cleanup();
     io_c.isBusy = false;
@@ -71,8 +71,9 @@ void TransmitISR() {
     }
 }
 
+
+
 void ReceiveISR() {
-#if 0
     if (PIE1bits.CCP1IE && PIR1bits.CCP1IF) {
         //inverts edge detection 
         CCP1CONbits.CCP1M0 = CCP1CONbits.CCP1M0 ^ 1;
@@ -80,14 +81,14 @@ void ReceiveISR() {
         uint16_t cval = ReadRxCapture();
 
         //ticks to microseconds
-        //TICS2US();) //cval = cval * 2 / 3;
+        cval = T2U(cval);
 
 #if defined RX_RAW
         rx_raw(cval); //todo:
 #endif
-        for (int i = 0; targets[i]; i++) {
-            targets[i]->recv_bus(targets[i], cval);
-        }
+//        for (int i = 0; remotes[i]; i++) {
+//            remotes[i]->recv_bus(remotes[i], cval);
+//        }
         //&targets[i]->recv_bus(targets[i], cval);
         // }
 
@@ -109,7 +110,5 @@ void ReceiveISR() {
         PIR1bits.TMR1IF = 0;
 
     }
-#endif
-    
 }
 

@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "system.h"
+#include "haapi.h"
 
 unsigned char ReceivedDataBuffer[64] @ HID_CUSTOM_OUT_DATA_BUFFER_ADDRESS;
 unsigned char ToSendDataBuffer[64] @ HID_CUSTOM_IN_DATA_BUFFER_ADDRESS;
@@ -27,7 +28,7 @@ void APP_DeviceCustomHIDInitialize() {
             (uint8_t*) & ReceivedDataBuffer, 64);
 }
 
-void HIDSend(uint16_t command) {
+void HIDSend(code command) {
     
     if (USBGetDeviceState() < CONFIGURED_STATE) {
         /* Jump back to the top of the while loop. */
