@@ -26,7 +26,7 @@ void rx_raw_timeo();
 #define StopReceivingInt() PIE1bits.CCP1IE = 0; PIE1bits.TMR1IE = 0;
 #define StartReceivingInt() PIE1bits.CCP1IE = 1; PIE1bits.TMR1IE  = 1;
 
-void io_ctrl_send_cmd(dev_ps* d,  code c) {
+void io_ctrl_send_cmd(dev_ps* d, code c) {
     if (d->hw_port != 0) {
         if (!io_c.isBusy) {
             io_c.isBusy = true;
@@ -51,6 +51,10 @@ void evdone(struct dev_ps* dt) {
     io_c.isBusy = false;
     StartReceivingInt();
 }
+#define ACT_LOW 0
+#define ACT_HIGH 1
+
+uint8_t rx_type = -1;
 
 void StartIRReceiver() {
 
@@ -58,8 +62,11 @@ void StartIRReceiver() {
 
     if (PORTCbits.RC2 == 1) {
         OpenRxCapture(CAP_EVERY_FALL_EDGE);
+        rx_type = ACT_HIGH;
+
     } else {
         OpenRxCapture(CAP_EVERY_RISE_EDGE);
+        rx_type = ACT_LOW;
     }
     OpenRxTimer();
 }
@@ -72,7 +79,7 @@ void TransmitISR() {
 }
 
 extern remote *remotes[];
-
+extern void reset_rx();
 
 void ReceiveISR() {
     if (PIE1bits.CCP1IE && PIR1bits.CCP1IF) {
@@ -100,20 +107,14 @@ void ReceiveISR() {
 #if defined RX_RAW
         rx_raw_timeo();
 #endif
-//        reset_rx();
+        reset_rx();
         CCP1CON = 0;
         //reset edge detection
-        IR_RCV ? CCP1CON = 0b100 : CCP1CON = 0b101;
+        if (rx_type == ACT_HIGH) { CCP1CON = 0b100; }
+            else CCP1CON = 0b101;
+
         PIR1bits.TMR1IF = 0;
 
     }
 }
 
-
-/*
-void reset_rx() {
-    state = idle;
-    t_first_edge = 0;
-    bit_id = 0;
-    bits = 0;
- }*/

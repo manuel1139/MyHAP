@@ -39,7 +39,7 @@ remote terratec = {
     530,
     600,
     0,
-    16,
+    32,
     &hw_ir,
     &rx_ps,
 };

@@ -2,8 +2,6 @@
 
 #include "haapi.h"
 
-
-
 typedef struct {
     uint8_t word_cnt;
     uint8_t bit_cnt;
@@ -12,31 +10,30 @@ typedef struct {
 } tx_data;
 
 typedef struct oldremote {
-     char* name;
-     uint16_t hdr_time_a;
-     uint16_t hdr_time_b;
-     uint16_t a_1;
-     uint16_t b_1;
-     uint16_t a_0;
-     uint16_t b_0;
-     uint16_t tail;
-     uint16_t pre_code;
-     uint8_t bit_cnt;
+    char* name;
+    uint16_t hdr_time_a;
+    uint16_t hdr_time_b;
+    uint16_t a_1;
+    uint16_t b_1;
+    uint16_t a_0;
+    uint16_t b_0;
+    uint16_t tail;
+    uint16_t pre_code;
+    uint8_t bit_cnt;
 } oldremote;
-
 
 bool chk_bit_bounds(remote* rx, uint16_t a, uint16_t b) {
 
     oldremote orx;
     oldremote* r = &orx;
-    
+
     r->a_0 = rx->zero.pulse;
     r->b_0 = rx->zero.space;
-    
+
     r->a_1 = rx->one.pulse;
     r->b_1 = rx->one.space;
-            
-    
+
+
     uint16_t diff_a, diff_b;
     bool a1, b1, a0, b0, x;
 
@@ -65,7 +62,6 @@ bool chk_hdr_bounds(uint16_t remote_time, uint16_t bit_time) {
     return false;
 }
 
-
 enum fsm_state {
     idle,
     header_a,
@@ -79,13 +75,18 @@ enum fsm_state {
 
 uint16_t rx_code_found;
 
+static uint16_t edge_a;
+static uint8_t bit_id;
+static uint8_t word_id;
+static uint16_t word[2];
+
+void reset_rx() {
+    state = idle;
+    edge_a = 0;
+    bit_id = 0;
+}
+
 void rx_ps(struct remote* r, uint16_t bit_time) {
-    
-    static uint16_t edge_a;
-    static uint8_t bit_id;
-    static uint8_t word_id;
-    static uint16_t word[2];
-    
     switch (state) {
         case idle: //ignore first edge
             state = header_a;
@@ -98,7 +99,7 @@ void rx_ps(struct remote* r, uint16_t bit_time) {
         case header_b:
             chk_hdr_bounds(r->header.space, bit_time) ? state = first_edge :
                     state = not_me;
-            break;          
+            break;
         case first_edge:
             edge_a = bit_time;
             state = second_edge;
@@ -123,10 +124,9 @@ void rx_ps(struct remote* r, uint16_t bit_time) {
                 //r-> == word[0]; else not_me
                 rx_code_found = word[1];
                 state = done;
-
             }
             break;
-            
+
         case not_me:
             break;
         case done:
