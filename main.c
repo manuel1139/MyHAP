@@ -26,6 +26,8 @@
 #include "haapi.h"
 
 #include "terratec.h"
+#include "yamaha.h"
+
 
 //#define DEBUG
 #ifdef DEBUG
@@ -33,7 +35,7 @@
 /*
  * for debugging purposes todo: ifdef  
  */
- 
+
 void putch(unsigned char data) {
     while (!PIR1bits.TXIF) // wait until the transmitter is ready
         continue;
@@ -46,55 +48,55 @@ void init_uart(void) {
 }
 #endif
 
+//remotes that receive commands
 remote *remotes[] = {
     &terratec,
-    0
+    NULL
 };
+
+cmd2target c2t_list[] = {
+    { 0x28D7, KEY_1, (dev_target*) & yamaha},
+    { NULL}
+};
+
+SendTarget(command cmd) {
+
+    for (int i = 0; c2t_list[i].cmd.addr; i++) {
+        if ((cmd.addr == c2t_list[i].cmd.addr) &&
+                (cmd.code == c2t_list[i].cmd.code)) {
+            c2t_list[i].target->send_bus(c2t_list[i], Y_VOL_UP);
+        }
+    }
+}
 
 int main(void) {
 
     SYSTEM_Initialize();
 
     //init_uart();
-    //rintf("starting\n");
+    //printf("starting\n");
 
     USBDeviceInit();
     USBDeviceAttach();
 
-
-#if 0
-    target_dev dvb_srv = {
-        //Name           //Adress     //port
-        "DVB-Server", 0xC0D1, &usb_d, 0, 0
-    };
-
-    /*
-    cmd_target targets[0] = {
-       //Name           //Adress     //port
-        { "DVB-Server", 0xABCD,      &hw_usb}
-    };
-     */
-
-#endif
-
     //setup receiving hardware and start receiving/decoding
     StartIRReceiver();
-    //io_control->StartIrReceiver())
-        //SendCommand(&pollin, S3_ON);
 
-    //SendCommand(&testd, Y_VOL_UP);
-       
-    static uint32_t cntr = 0;
+    command cmd;
+
     while (1) {
-        if (cntr++ >  300000ul) {
- //               SendCommand(&yamaha, Y_VOL_UP);
-                cntr=0;
-        }    
-        //LED2 = ~IR_RCV;
+
+        //check each remote for new commands
+        for (int i = 0; remotes[i]; i++) {
+            if (remotes[i]->code_received) {
+                cmd.addr = remotes[i]->dev.addr;
+                cmd.code = remotes[i]->code_received;
+                SendTarget(cmd);
+            }
+        }
     }
 }
 
- 
 bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void *pdata, uint16_t size) {
     switch ((int) event) {
         case EVENT_TRANSFER:
