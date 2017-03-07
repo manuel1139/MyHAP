@@ -62,74 +62,63 @@ bool chk_hdr_bounds(uint16_t remote_time, uint16_t bit_time) {
     return false;
 }
 
-enum fsm_state {
-    idle,
-    header_a,
-    header_b,
-    first_edge,
-    second_edge,
-    tail,
-    done,
-    not_me
-} state;
-
-uint16_t rx_code_found;
-
-static uint16_t edge_a;
-static uint8_t bit_id;
-static uint8_t word_id;
-static uint16_t word[2];
-
-void reset_rx() {
-    state = idle;
-    edge_a = 0;
-    bit_id = 0;
+void reset_rx(remote* r) {
+    r->rx_data.edge_a = 0;
+    r->rx_data.bit_id = 0;
+    r->rx_data.state = rx_idle;
+    r->rx_data.code_received = 0;
 }
 
 void rx_ps(struct remote* r, uint16_t bit_time) {
-    switch (state) {
-        case idle: //ignore first edge
-            state = header_a;
+    switch (r->rx_data.state) {
+        case rx_idle: //ignore first edge
+            r->rx_data.state = rx_header_a;
             break;
-        case header_a:
+        case rx_header_a:
             //allow 1/16 bit time as difference
-            chk_hdr_bounds(r->header.pulse, bit_time) ? state = header_b :
-                    state = not_me;
+            chk_hdr_bounds(r->header.pulse, bit_time) ? r->rx_data.state = rx_header_b :
+                    r->rx_data.state = rx_not_me;
             break;
-        case header_b:
-            chk_hdr_bounds(r->header.space, bit_time) ? state = first_edge :
-                    state = not_me;
+        case rx_header_b:
+            chk_hdr_bounds(r->header.space, bit_time) ? r->rx_data.state = rx_first_edge :
+                    r->rx_data.state = rx_not_me;
             break;
-        case first_edge:
-            edge_a = bit_time;
-            state = second_edge;
+        case rx_first_edge:
+            r->rx_data.edge_a = bit_time;
+            r->rx_data.state = rx_second_edge;
             break;
-        case second_edge:
-            if (bit_id < r->bit_cnt) {
-                chk_bit_bounds(r, edge_a, bit_time) ?
-                        state = first_edge : state = not_me;
-                if (state == not_me) break;
+        case rx_second_edge:
+            if (r->rx_data.bit_id < r->bit_cnt) {
+                chk_bit_bounds(r, r->rx_data.edge_a, bit_time) ?
+                        r->rx_data.state = rx_first_edge : r->rx_data.state = rx_not_me;
+                if (r->rx_data.state == rx_not_me) break;
 
-                word_id = bit_id / 16;
+                r->rx_data.word_id = r->rx_data.bit_id / 16;
 
-                word[word_id] <<= 1;
-                //TODO:: might NOT always work!
-                if (edge_a > bit_time) {
+                r->rx_data.word[r->rx_data.word_id] <<= 1;
 
-                    word[word_id] |= 1;
+                if (r->rx_data.edge_a > bit_time) {
+                    r->rx_data.word[r->rx_data.word_id] |= 1;
                 }
-                bit_id++;
+                r->rx_data.bit_id++;
             } else {
-                //check pre-data 
-                //r-> == word[0]; else not_me
-                rx_code_found = word[1];
-                state = done;
+                //rc data is big endian
+                r->rx_data.word[0] = SWAP_UINT16(r->rx_data.word[0]);
+                r->rx_data.word[1] = SWAP_UINT16(r->rx_data.word[1]);
+
+                //check addres 
+                if (r->dev.addr == r->rx_data.word[0]) {
+                    r->rx_data.code_received = r->rx_data.word[1];
+                } else {
+                    r->rx_data.state = rx_not_me;
+                }
+                r->rx_data.state = rx_done;
             }
             break;
 
-        case not_me:
+        case rx_not_me:
             break;
-        case done:
+        case rx_done:
             //todo: check repeat code
             break;
         default:
